@@ -1,7 +1,24 @@
 .active {
-    color: red;
+    color: rgb(207, 126, 3);
 }
 
 .highlighted {
-    color: green;
+    color: rgb(22, 163, 97);
+}
+
+body,
+#save-annotation-container,
+#add-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#save-annotation-container,
+#add-content-container {
+    margin-top: 2rem;
+}
+
+body {
+    padding: 4rem 2rem;
 }
