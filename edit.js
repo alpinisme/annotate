@@ -9,10 +9,10 @@ const annotationBox = document.getElementById("save-annotation-container");
 
 /* stateful functions */
 
-const uniqueIdMaker = (kind) => { 
-    const index = 0; 
+const uniqueIdMaker = (kind) => {
+    const index = 0;
     return () => kind + index.toString();
-}
+};
 
 const makeAnnotationId = uniqueIdMaker("ann");
 
@@ -21,31 +21,30 @@ const makeAnnotationId = uniqueIdMaker("ann");
 function replaceContent() {
     const content = textarea.value;
     const paragraphs = content.split("\n");
-    paragraphs.forEach(para => { 
+    paragraphs.forEach((para) => {
         const words = para.split(" ");
         const el = document.createElement("p");
-        words.forEach(word => {
+        words.forEach((word) => {
             const span = document.createElement("span");
             span.classList.add("clickable-word");
 
             const punctuation = word.match(/\W+$/);
-            let marks = '';
-            
+            let marks = "";
+
             if (punctuation) {
                 marks = punctuation[0];
                 const wordBody = word.slice(0, -marks.length);
-                span.textContent = wordBody || '';
+                span.textContent = wordBody || "";
             } else {
                 span.textContent = word;
             }
-    
+
             el.append(span);
             el.append(document.createTextNode(marks + " "));
-        })
+        });
 
         contentBox.append(el);
-
-    })
+    });
 }
 
 function selectWord(event) {
@@ -55,15 +54,15 @@ function selectWord(event) {
 }
 
 function saveAnnotation() {
-    const activeList =  document.querySelectorAll(".active")
+    const activeList = document.querySelectorAll(".active");
     if (activeList.length === 0) {
         return;
     }
     const id = makeAnnotationId();
-    activeList.forEach(el => {
+    activeList.forEach((el) => {
         el.classList.remove("active");
         el.classList.add(id);
-    })
+    });
     const annotation = document.createElement("p");
     annotation.textContent = addAnnotation.value;
     annotation.id = id;
@@ -73,13 +72,11 @@ function saveAnnotation() {
 
 function highlightAssociatedWords(event) {
     const highlightClass = "highlighted";
-    document.querySelectorAll("." + highlightClass).forEach(element => {
-        console.log("before: ", element.classList);
+    document.querySelectorAll("." + highlightClass).forEach((element) => {
         element.classList.remove(highlightClass);
-        console.log("after: ", element.classList);
     });
     if (event.target.classList.contains("annotation")) {
-        document.querySelectorAll("." + event.target.id).forEach(element => {
+        document.querySelectorAll("." + event.target.id).forEach((element) => {
             element.classList.add(highlightClass);
         });
     }
